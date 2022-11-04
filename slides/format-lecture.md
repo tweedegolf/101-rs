@@ -128,10 +128,9 @@ fn main() {
   println!("Hello world!");
 }
 ```
-<!-- Slide for code examples with a link to Rust playground -->
 
----
-layout: iframe
-url: https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&code=fn%20main()%20%7B%0A%20%20println!(%22Hello%20world!%22)%3B%0A%7D
----
-<!-- Iframe slide containing Rust playground -->
+```rust {all|1|3}
+fn main() {
+  println!("Hallo lieve mensen!");
+}
+```
