@@ -7,10 +7,8 @@ use serde_json::Value as JsonValue;
 
 type JsonObject = serde_json::Map<String, JsonValue>;
 
-use crate::{
-    io::{PathExt, WriteExt},
-    to_prefixed_tag, to_tag,
-};
+use crate::io::{PathExt, WriteExt};
+use crate::tag::ToTag;
 
 const PACKAGE_JSON_CONTENT_STUB: &str = include_str!("../include/slides/package.json");
 
@@ -45,7 +43,7 @@ impl<'track> SlidesPackage<'track> {
 
     pub fn render(&self, out_dir: impl AsRef<Path>) -> Result<(), RenderSlidesError> {
         let mut package_json: JsonObject = serde_json::from_str(PACKAGE_JSON_CONTENT_STUB).unwrap();
-        package_json.insert("name".into(), to_tag(self.name).into());
+        package_json.insert("name".into(), self.name.to_tag().into());
         let mut package_scripts = JsonObject::new();
 
         let output_dir = out_dir.as_ref();
@@ -57,7 +55,7 @@ impl<'track> SlidesPackage<'track> {
 
         for (deck, i) in self.decks.iter().zip(1..) {
             let deck_output = {
-                let mut o = slides_output_dir.join(to_prefixed_tag(deck.name, i));
+                let mut o = slides_output_dir.join(deck.name.to_prefixed_tag(i));
                 o.set_extension("md");
                 o
             };

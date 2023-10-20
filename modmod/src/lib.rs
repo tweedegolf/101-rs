@@ -3,6 +3,7 @@ mod exercises;
 mod io;
 mod load;
 mod slides;
+mod tag;
 
 use self::{
     book::{Book, BookBuilder, ChapterBuilder, SectionBuilder},
@@ -15,8 +16,7 @@ use exercises::{
 use io::PathExt;
 use slides::{SlideDeckBuilder, SlidesPackage, SlidesPackageBuilder};
 use std::{
-    fmt::{self, Display},
-    fs,
+    fmt, fs,
     path::{Path, PathBuf},
 };
 
@@ -27,11 +27,13 @@ pub struct Track {
 }
 
 impl Track {
+    /// Load a [Track] definition from a TOML file
     pub fn load_toml_def(path: impl AsRef<Path>) -> Result<Self, LoadTrackError> {
         let def = TrackDef::load(path.as_ref(), None).change_context(LoadTrackError)?;
         def.resolve().change_context(LoadTrackError)
     }
 
+    /// Render the [Track] into the passed output directory
     pub fn render(
         &self,
         output_dir: impl AsRef<Path>,
@@ -65,7 +67,7 @@ impl Track {
         // Ensure output dir exists
         output_dir.create_dir_all()?;
 
-        // Render the modules in the track
+        // Build the book, slides, and exercise scaffolding trees
         let mut book_builder = Book::builder(&self.name);
         let mut slides_builder = SlidesPackage::builder(&self.name);
         let mut exercises_builder = ExerciseCollection::builder();
@@ -237,32 +239,3 @@ impl fmt::Display for LoadTrackError {
 }
 
 impl error_stack::Context for LoadTrackError {}
-
-fn to_prefixed_tag<S, P>(s: S, p: P) -> String
-where
-    S: Display,
-    P: Display,
-{
-    to_tag(format!("{p}-{s}"))
-}
-
-fn to_tag<S>(s: S) -> String
-where
-    S: ToString,
-{
-    let mut s = s.to_string();
-    s.make_ascii_lowercase();
-    let mut tag = String::new();
-    let mut words = s.split_whitespace();
-
-    match words.next() {
-        Some(w) => tag.push_str(w),
-        None => return s,
-    }
-
-    for word in words {
-        tag.push('-');
-        tag.push_str(word);
-    }
-    tag
-}

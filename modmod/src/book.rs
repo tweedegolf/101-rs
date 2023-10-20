@@ -9,7 +9,7 @@ use error_stack::Result;
 
 use crate::{
     io::{PathExt, WriteExt},
-    to_tag,
+    tag::ToTag,
 };
 
 #[derive(Debug, Default)]
@@ -71,7 +71,7 @@ impl<'track> Book<'track> {
             summary_md.write_fmt(format_args!("- [{}]()\n", chapter.title))?;
 
             for (section, section_i) in chapter.sections.iter().zip(1..) {
-                let section_file_name = Path::new(&to_tag(section.title)).with_extension("md");
+                let section_file_name = Path::new(&(section.title.to_tag())).with_extension("md");
                 summary_md.write_fmt(format_args!(
                     "\t- [{}]({})\n",
                     section.title,

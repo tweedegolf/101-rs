@@ -6,7 +6,7 @@ use std::{
 
 use error_stack::{IntoReport, Result, ResultExt};
 
-use crate::{io::PathExt, to_prefixed_tag};
+use crate::{io::PathExt, tag::ToTag};
 
 #[non_exhaustive]
 #[derive(Debug, Default)]
@@ -46,7 +46,7 @@ impl<'track> ExerciseCollection<'track> {
         for mod_ex in self.module_exercises.iter() {
             let mod_ex_out_dir = {
                 let mut d = exercise_root_dir.clone();
-                d.push(to_prefixed_tag(mod_ex.name, mod_ex.index));
+                d.push(mod_ex.name.to_prefixed_tag(mod_ex.index));
                 d
             };
             mod_ex_out_dir.create_dir_all()?;
@@ -54,7 +54,7 @@ impl<'track> ExerciseCollection<'track> {
             for unit_ex in mod_ex.unit_exercises.iter() {
                 let unit_ex_out_dir = {
                     let mut d = mod_ex_out_dir.clone();
-                    d.push(to_prefixed_tag(unit_ex.name, unit_ex.index));
+                    d.push(unit_ex.name.to_prefixed_tag(unit_ex.index));
                     d
                 };
                 unit_ex_out_dir.create_dir_all()?;
@@ -62,7 +62,7 @@ impl<'track> ExerciseCollection<'track> {
                 for ex_pack in unit_ex.exercises.iter() {
                     let ex_pack_out_dir = {
                         let mut d = unit_ex_out_dir.clone();
-                        d.push(to_prefixed_tag(ex_pack.name, ex_pack.index));
+                        d.push(ex_pack.name.to_prefixed_tag(ex_pack.index));
                         d
                     };
                     ex_pack_out_dir.create_dir_all()?;
