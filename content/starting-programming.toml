@@ -1,0 +1,4 @@
+name = "Learn programming with Rust"
+modules = [
+    "mods/Z-starting-programming/mod.toml"
+]

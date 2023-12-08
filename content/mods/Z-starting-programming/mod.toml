@@ -1,0 +1,54 @@
+name = "Learn programming with Rust"
+description = "Start out programming with Rust as your first language!"
+
+[[units]]
+name = "Introduction to Programming Concepts"
+template = "0-introduction-to-programming-concepts.md"
+topics = [
+    "topics/what-is-programming/topic.toml",
+    "topics/hello-world-analysis/topic.toml",
+    "topics/comments/topic.toml",
+    "topics/variables/topic.toml",
+    "topics/conditionals/topic.toml",
+    "topics/lists-and-loops/topic.toml",
+]
+
+[[units]]
+name = "Types"
+template = "1-types.md"
+topics = []
+
+[[units]]
+name = "Dividing and Conquering"
+template = "2-divide-and-conquer.md"
+topics = []
+
+[[units]]
+name = "Scopes and global variables"
+template = "3-scopes-and-globals.md"
+topics = []
+
+[[units]]
+name = "Memory"
+template = "4-memory.md"
+topics = []
+
+[[units]]
+name = "Inputs and Outputs"
+template = "5-inputs-and-outputs.md"
+topics = []
+
+[[units]]
+name = "Command Line and Introduction to Cargo"
+template = "6-command-line-and-cargo.md"
+topics = []
+
+[[units]]
+name = "Modules and Multi-file projects"
+template = "7-modules-and-multi-file.md"
+topics = []
+
+[[units]]
+name = "Intermediate Programming Concepts"
+template = "8-intermediate-programming-concepts.md"
+topics = []
