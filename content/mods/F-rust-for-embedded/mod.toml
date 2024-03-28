@@ -1,0 +1,9 @@
+name = "Rust for Embedded Software"
+description = "Use Rust to program embedded software"
+
+[[units]]
+name = "Rust for Embedded Software"
+template = "embedded-rust.md"
+topics = [
+    
+]

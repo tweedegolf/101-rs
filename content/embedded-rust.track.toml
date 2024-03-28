@@ -1,0 +1,6 @@
+name = "Rust for Embedded Software"
+modules = [
+    "mods/0-intro/mod.toml",
+    "mods/A-foundations/mod.toml",
+    "mods/F-rust-for-embedded/mod.toml"
+]
